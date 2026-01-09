@@ -19,7 +19,7 @@ export default function RootLayout({
      <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-[70px] shrink-0 border-b items-center justify-between px-4">
+        <header className="flex h-[60px] shrink-0 border-b items-center justify-between px-4">
             <div className="flex-1 flex items-center md:gap-18 gap-4">
                 <SidebarTrigger className="flex md:hidden" />
               

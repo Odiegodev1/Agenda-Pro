@@ -5,12 +5,17 @@ import { CopyAgenda } from "@/components/copyagedameto";
 
 import { Notifications } from "@/components/Notifications";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
 import { CalendarDays, CopyCheck, CopyCheckIcon, Link2 } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { CalendarDay } from "react-day-picker";
 
-export default function AgendaProHome(){
-    
+export default async function AgendaProHome(){
+    const session = await auth()
+    if(!session){
+        return redirect("/")
+    }
     return(
        <section className="flex flex-1 flex-col gap-4">
             <div className="flex items-center gap-3 justify-end w-full">

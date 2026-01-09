@@ -5,10 +5,14 @@ import { Edit, Plus, X } from "lucide-react";
 import { getServicesByUserId } from "../actios/createservice";
 import { DeleteServiceButton } from "@/components/DeleteserviceButton";
 import { EditServices } from "@/components/EditServices";
+import { redirect } from "next/navigation";
 
 
 export default async function ServicosPage(){
     const user = await auth()
+    if(!user){
+        return redirect("/")
+    }
   const Servicoslist = await getServicesByUserId(user?.user?.id!);
   const {  data: services } = await getServicesByUserId(user?.user?.id!);
   console.log(services)

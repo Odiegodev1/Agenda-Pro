@@ -6,7 +6,7 @@ import Link from "next/link"
 
 export default function UsuarioOk() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-zinc-100">
+    <section className="p-3 relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-zinc-100">
 
       {/* 🌫️ blobs animados */}
       <motion.div

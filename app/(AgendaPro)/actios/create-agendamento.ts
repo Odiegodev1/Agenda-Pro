@@ -1,11 +1,12 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+
 import { CreateAgendamentoSchema } from "../schema/createagendamento";
 import { auth } from "@/lib/auth";
 import { ca } from "date-fns/locale";
 import { AppointmentStatus } from "@/lib/generated/prisma";
 import { revalidatePath } from "next/cache";
+import { prisma } from "@/lib/prisma";
 
 
 export async function CreateAgendamentoData(data: CreateAgendamentoSchema){

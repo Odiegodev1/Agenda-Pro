@@ -10,7 +10,7 @@ import { redirect, useRouter } from "next/navigation"
 export default function ConfirmacaoAgendamento() {
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 overflow-hidden">
+    <section className="p-3 relative min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 overflow-hidden">
 
       {/* glow animado */}
       <motion.div

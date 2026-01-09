@@ -1,8 +1,10 @@
 "use client"
 
+import { auth } from "@/lib/auth"
 import { motion } from "framer-motion"
 import { Check, Star } from "lucide-react"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 const plans = [
   {
@@ -44,7 +46,8 @@ const plans = [
   },
 ]
 
-export default function PlanosPage() {
+export default   function PlanosPage() {
+     
   return (
     <section className="rounded-2xl relative min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white overflow-hidden">
 

@@ -1,5 +1,6 @@
 "use client"
 
+import { auth } from "@/lib/auth"
 import { motion } from "framer-motion"
 import {
   CalendarCheck,
@@ -11,10 +12,14 @@ import {
 } from "lucide-react"
 import { signIn } from "next-auth/react"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
-export default function LandingPage() {
+export default  function LandingPage() {
+
+
   async function Login() {
     await signIn("github", { redirectTo: "/login" })
+    
   }
 
   return (

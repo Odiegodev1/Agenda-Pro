@@ -92,7 +92,7 @@ export function AvailableHours({
 
       {loading && <p className="text-sm text-zinc-500">Carregando...</p>}
 
-      <div className="grid grid-cols-6 gap-2">
+      <div className="grid md:grid-cols-6 grid-cols-4 gap-2">
         {hours.map((hour) => (
           <button
             key={hour}
