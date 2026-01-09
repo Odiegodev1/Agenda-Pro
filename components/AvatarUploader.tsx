@@ -27,7 +27,7 @@ export function AvatarUploader({ image, name }: Props) {
         </div>
       </div>
 
-      <UploadButton<UploadRouter>
+      <UploadButton<UploadRouter, "avatar">
         endpoint="avatar"
         onUploadBegin={() => {
           toast.loading("Enviando imagem...")
