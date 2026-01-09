@@ -35,6 +35,8 @@ import { CreateAgendamentoData } from "@/app/(AgendaPro)/actios/create-agendamen
 import { toast } from "sonner"
 import { redirect, useRouter } from "next/navigation"
 
+
+
 export function BookingClient({ userId, user }: any) {
   const [selectedDate, setSelectedDate] = useState("")
   const [serviceId, setServiceId] = useState("")
@@ -200,12 +202,13 @@ export function BookingClient({ userId, user }: any) {
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Serviços</SelectLabel>
-                          {user.services?.map((service: any) => (
+                          {user.services?.map((service : any) => (
                             <SelectItem
                               key={service.id}
                               value={service.id}
                             >
-                              {service.name} • {service.duration} min
+                             {service.name} • {service.duration} min • R$ {service.price}
+
                             </SelectItem>
                           ))}
                         </SelectGroup>
