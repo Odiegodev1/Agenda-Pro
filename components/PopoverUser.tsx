@@ -64,7 +64,7 @@ export function PopoverUser({user}: UserData) {
           
 
       </PopoverTrigger>
-      <PopoverContent side="right" className="w-80 mb-7">
+      <PopoverContent  className="w-80 mb-7">
         <div className="grid gap-4">
           <div className="space-y-2">
             <h4 className="leading-none font-medium">Ajuste de Conta</h4>
