@@ -58,7 +58,7 @@ export function BookingClient({ userId, user }: any) {
   const watchedHour = form.watch("hour")
 
   async function onSubmit(data: CreateAgendamentoSchema) {
-    const response = await CreateAgendamentoData(data)
+    const response = await CreateAgendamentoData({ ...data, userId })
 
     if (response.error) {
       return toast.error(response.error)

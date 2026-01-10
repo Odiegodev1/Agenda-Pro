@@ -9,51 +9,40 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
 
-export async function CreateAgendamentoData(data: CreateAgendamentoSchema){
-const session = await auth()
-const userId = session?.user?.id
+export async function CreateAgendamentoData(
+  data: CreateAgendamentoSchema & { userId: string }
+) {
+  try {
+    const newAgendamento = await prisma.appointment.create({
+      data: {
+        userId: data.userId, // ✅ dono do agenda
+        clientName: data.clientName,
+        clientPhone: data.clientPhone,
+        serviceId: data.serviceId,
+        date: new Date(`${data.date}T${data.hour}:00`),
+      },
+    })
 
+    await prisma.notification.create({
+      data: {
+        userId: data.userId,
+        title: "Novo agendamento",
+        message: `Novo agendamento de ${data.clientName} em ${newAgendamento.date.toLocaleString("pt-BR")}`,
+      },
+    })
 
-    try{
-        const newAgendamento = await prisma.appointment.create({
-            data: {
-                userId: userId,
-                clientName: data.clientName,
-                clientPhone: data.clientPhone,
-                serviceId: data.serviceId,
-                date: new Date(`${data.date}T${data.hour}:00`),
-            },
-            
-        })
-
-        const notify = await prisma.notification.create({
-            data: {
-                
-                title: "Novo agendamento",
-                userId,
-                message: `Novo agendamento de ${data.clientName} agendou ${newAgendamento.date.toLocaleString(
-                    "pt-BR",
-                    { hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit", year: "numeric" }
-                )}`,
-                
-            }
-        })
-
-        
-
-        return{
-            data: {newAgendamento, notify},
-            error: null,
-        }
-
-    }catch(error){
-        return{
-            data: null,
-            error: "Erro ao criar agendamento",
-        }
+    return {
+      data: { newAgendamento },
+      error: null,
     }
+  } catch (error) {
+    console.error(error)
+    return {
+      data: null,
+      error: "Erro ao criar agendamento",
+    }
+  }
 }
-
 
 export async function getNotifications() {
   const session = await auth()
