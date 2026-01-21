@@ -39,42 +39,15 @@ Com o AgendaPro, seus clientes agendam sozinhos, você organiza sua agenda em um
 
 ## 🧩 Tecnologias Utilizadas
 
-- **Next.js 14** (App Router)
-- **React**
-- **TypeScript**
-- **Prisma ORM**
-- **PostgreSQL**
-- **NextAuth**
-- **Tailwind CSS**
-- **ShadCN UI**
-- **Framer Motion**
-- **Zod**
-- **React Hook Form**
 
----
+![JavaScript](https://img.shields.io/badge/JavaScript-000?style=for-the-badge&logo=javascript)
+![Next.js](https://img.shields.io/badge/Next.js-000?style=for-the-badge&logo=nextdotjs)
+![React](https://img.shields.io/badge/React-000?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-000?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-000?style=for-the-badge&logo=tailwindcss)
+![Prisma](https://img.shields.io/badge/Prisma-000?style=for-the-badge&logo=prisma)
+![ShadCN/UI](https://img.shields.io/badge/ShadCN_UI-000?style=for-the-badge&logo=radixui)
+![Figma](https://img.shields.io/badge/Figma-000?style=for-the-badge&logo=figma)
+![Vercel](https://img.shields.io/badge/Vercel-000?style=for-the-badge&logo=vercel)
 
-## 📁 Estrutura do Projeto
 
-```txt
-app/
- ├─ (AgendaPro)/
- │   ├─ agendamentos/
- │   ├─ servicos/
- │   ├─ configuracoes/
- │   ├─ planos/
- │   ├─ schema/
- │   └─ actions/
- ├─ api/
- ├─ layout.tsx
- └─ page.tsx
-
-components/
- ├─ BookingClient.tsx
- ├─ CalendarAgendamento.tsx
- ├─ AvailableHours.tsx
- ├─ Notifications.tsx
- ├─ Dialogs/
- └─ UI/
-
-prisma/
- └─ schema.prisma
