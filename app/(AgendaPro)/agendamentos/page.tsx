@@ -1,7 +1,7 @@
 
 import { Agendamento } from "@/components/Agendamento";
 import { ButtonAgendamento } from "@/components/buttonagedamento";
-import { SubscribeButton } from "@/components/buttonstripe";
+
 import { CopyAgenda } from "@/components/copyagedameto";
 
 import { Notifications } from "@/components/Notifications";

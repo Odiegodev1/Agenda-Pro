@@ -1,6 +1,7 @@
 "use client"
 
-import { SubscribeButton } from "@/components/buttonstripe"
+
+import { Button } from "@/components/ui/button"
 import { auth } from "@/lib/auth"
 import { motion } from "framer-motion"
 import { Check, Star } from "lucide-react"
@@ -100,7 +101,9 @@ export default   function PlanosPage() {
                 ))}
               </ul>
 
-              <SubscribeButton />
+              <Button>
+                Assinar
+              </Button>
                 
         
             </motion.div>
