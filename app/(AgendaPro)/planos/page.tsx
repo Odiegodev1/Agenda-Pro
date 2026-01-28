@@ -1,5 +1,6 @@
 "use client"
 
+import { SubscribeButton } from "@/components/buttonstripe"
 import { auth } from "@/lib/auth"
 import { motion } from "framer-motion"
 import { Check, Star } from "lucide-react"
@@ -7,20 +8,10 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 
 const plans = [
-  {
-    name: "Free",
-    price: "R$ 0",
-    description: "Para começar",
-    features: [
-      "1 serviço",
-      "Até 20 agendamentos/mês",
-      "Página pública básica",
-    ],
-    highlight: false,
-  },
+ 
   {
     name: "Pro",
-    price: "R$ 39/mês",
+    price: "R$ 29,90",
     description: "Mais popular",
     features: [
       "Serviços ilimitados",
@@ -31,26 +22,14 @@ const plans = [
     ],
     highlight: true,
   },
-  {
-    name: "Premium",
-    price: "R$ 79/mês",
-    description: "Para escalar",
-    features: [
-      "Tudo do Pro",
-      "WhatsApp automático",
-      "Relatórios",
-      "Múltiplos profissionais",
-      "Branding customizado",
-    ],
-    highlight: false,
-  },
+  
 ]
 
 export default   function PlanosPage() {
      
   return (
     <section className="rounded-2xl relative min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white overflow-hidden">
-
+      
       {/* 🌫 Glow decorativo */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
@@ -121,17 +100,9 @@ export default   function PlanosPage() {
                 ))}
               </ul>
 
-              <Link
-                href="#"
-                className={`mt-8 block w-full rounded-xl py-3 text-center font-medium transition
-                  ${
-                    plan.highlight
-                      ? "bg-indigo-600 hover:bg-indigo-700"
-                      : "bg-zinc-800 hover:bg-zinc-700"
-                  }`}
-              >
-                Escolher plano
-              </Link>
+              <SubscribeButton />
+                
+        
             </motion.div>
           ))}
         </div>

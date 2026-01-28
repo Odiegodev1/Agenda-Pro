@@ -3,7 +3,7 @@ import { Link2 } from "lucide-react"
 import { toast } from "sonner"
 
 export function CopyAgenda({userId} : {userId: string}){
-    const url = `${process.env.NEXT_PUBLIC_SITE_URL}/agenda/${userId}`
+    const url = `${process.env.NEXT_PUBLIC_APP_URL}/agenda/${userId}`
 
     function copyageda(){
        const copy =  navigator.clipboard.writeText(url)

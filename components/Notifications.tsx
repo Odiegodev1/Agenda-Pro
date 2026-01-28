@@ -56,7 +56,7 @@ export function Notifications() {
         </TabsTrigger>
       </TabsList>
 
-      {/* 🔔 NÃO LIDAS */}
+      
       <TabsContent value="unread">
         {unread.length === 0 && (
           <p className="text-sm text-zinc-500">
@@ -67,9 +67,9 @@ export function Notifications() {
         {unread.map((n) => (
           <div
             key={n.id}
-            className="border-b p-4 flex items-center justify-between"
+            className="border-b mb-2 bg-zinc-800 rounded-md p-4 flex items-center justify-between"
           >
-            <div>
+            <div className="">
               <h2 className="font-semibold md:text-md text-sm">{n.title}</h2>
               <p className="md:text-sm text-xs text-zinc-400 whitespace-pre-line">
                 {n.message}

@@ -34,6 +34,8 @@ import {
 import { CreateAgendamentoData } from "@/app/(AgendaPro)/actios/create-agendamento"
 import { toast } from "sonner"
 import { redirect, useRouter } from "next/navigation"
+import { convertedminInHours } from "@/lib/convertedminInHours"
+import { StringInReais } from "@/lib/stringinReais"
 
 
 
@@ -207,7 +209,7 @@ export function BookingClient({ userId, user }: any) {
                               key={service.id}
                               value={service.id}
                             >
-                             {service.name} • {service.duration} min • R$ {service.price}
+                             {service.name} • {convertedminInHours(service.duration)} • {StringInReais(service.price)}
 
                             </SelectItem>
                           ))}

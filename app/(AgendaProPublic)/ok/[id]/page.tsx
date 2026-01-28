@@ -51,12 +51,7 @@ export default function ConfirmacaoAgendamento() {
         </p>
 
         <div className="mt-8 flex flex-col gap-3">
-          <Link
-            href="/"
-            className="rounded-xl bg-emerald-600 py-3 text-white font-medium hover:bg-emerald-700 transition"
-          >
-            Voltar ao início
-          </Link>
+          
 
       
         </div>

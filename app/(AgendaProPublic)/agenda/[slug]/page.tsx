@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { BookingClient } from "@/components/booking";
 import { se } from "date-fns/locale";
+import { checkPlanLimits } from "@/app/(AgendaPro)/actios/checkplan";
 
 
 export default async function SlugPage({
@@ -40,13 +41,17 @@ export default async function SlugPage({
   };
 
   if(!user.data){
-    redirect("/")
+    return redirect("/")
+  }
+  const plan = await checkPlanLimits()
+  if(!plan.allowed){
+   return redirect("/")
   }
   return(
    <div className="p-4">
         <BookingClient
       userId={userId}
-      user={userdata as any }
+      user={userdata  }
     />
    </div>
   )

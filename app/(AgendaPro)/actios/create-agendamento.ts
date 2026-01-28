@@ -7,11 +7,18 @@ import { ca } from "date-fns/locale";
 import { AppointmentStatus } from "@/lib/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { check } from "zod";
+import { checkPlanLimits } from "@/lib/plan-rules";
+import { CheckPalnDays2 } from "@/lib/plan-rules-agendamento";
 
 
 export async function CreateAgendamentoData(
   data: CreateAgendamentoSchema & { userId: string }
 ) {
+
+ 
+
+
   try {
     const newAgendamento = await prisma.appointment.create({
       data: {
@@ -30,6 +37,8 @@ export async function CreateAgendamentoData(
         message: `Novo agendamento de ${data.clientName} em ${newAgendamento.date.toLocaleString("pt-BR")}`,
       },
     })
+    revalidatePath("/servicos")
+revalidatePath("/agendamentos")
 
     return {
       data: { newAgendamento },

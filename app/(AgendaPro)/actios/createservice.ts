@@ -3,12 +3,37 @@
 import { prisma } from "@/lib/prisma";
 import { CreateServiceSchema } from "../schema/createservices";
 import { auth } from "@/lib/auth";
+import { checkPlanLimits } from "@/lib/plan-rules";
+import { revalidatePath } from "next/cache";
 
 
 export async function createService(data: CreateServiceSchema){
 const session = await auth()
 const userId = session?.user?.id;
 
+{/**await checkPlanLimits(userId)
+
+  // 🔍 buscar plano do usuário
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { planActive: true },
+  })
+
+  if (!user) throw new Error("Usuário não encontrado")
+
+  // ❗ APLICA LIMITE APENAS SE FOR FREE
+  if (!user.planActive) {
+    const servicesCount = await prisma.service.count({
+      where: { userId },
+    })
+
+    if (servicesCount >= 2) {
+      throw new Error(
+        "Plano FREE permite apenas 2 serviços. Vire PRO para continuar."
+      )
+    }
+  } */}
+ 
 
     try {
 
@@ -21,6 +46,8 @@ const userId = session?.user?.id;
             }
         })
 
+revalidatePath("/servicos")
+revalidatePath("/agendamentos")
         return{
             data: createService,
             error: null
@@ -48,6 +75,8 @@ export async function updateService(serviceId: string, data: CreateServiceSchema
             price: parseFloat(data.price),
         }
     })
+    revalidatePath("/servicos")
+revalidatePath("/agendamentos")
 
     return{
         data: updateService,
@@ -74,6 +103,7 @@ export async function getServicesByUserId(userId: string){
                 user: true,
             }
         })
+        
         return({
             data: services,
             error: null

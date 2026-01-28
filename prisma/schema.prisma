@@ -63,7 +63,12 @@ model User {
   closeTime String?
   location String?
 
-  createAt DateTime @default(now())
+  stripeCustomerId String?
+  plan             String   @default("FREE") // FREE | PRO
+  planActive       Boolean  @default(false)
+  planPaidAt       DateTime?
+
+   createdAt DateTime @default(now())
 
   accounts      Account[]
   sessions      Session[]

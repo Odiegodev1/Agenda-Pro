@@ -34,7 +34,7 @@ export async function getAgendaByDate({
       date: "asc",
     },
   })
-  console.log(appointments)
+  
 
   return {
     data: appointments,
@@ -71,7 +71,7 @@ export async function getAgenda({
       date: "asc",
     },
   })
-  console.log(appointments)
+  
 
   return {
     data: appointments,

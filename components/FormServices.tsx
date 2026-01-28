@@ -1,6 +1,6 @@
 "use client"
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { createServiceSchema, CreateServiceSchema } from "@/app/(AgendaPro)/schema/createservices";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,9 +38,10 @@ export function FormServices(){
   name="name"
   render={({ field }) => (
     <FormItem>
+      <FormLabel>Nome do serviço</FormLabel>
      
       <FormControl>
-        <Input placeholder="Nome do serviço" {...field} />
+        <Input placeholder="Ex: Corte de cabelo" {...field} />
       </FormControl>
      
       <FormMessage />
@@ -53,6 +54,7 @@ export function FormServices(){
   name="duration"
   render={({ field }) => (
     <FormItem>
+      <FormLabel>Duração do serviço</FormLabel>
      
       <FormControl>
         <Input type="number" placeholder="Duração do serviço (minutos) - (ex: 30min)" {...field} />
@@ -68,9 +70,10 @@ export function FormServices(){
   name="price"
   render={({ field }) => (
     <FormItem>
+      <FormLabel>Preço do serviço</FormLabel>
      
       <FormControl>
-        <Input type="number" placeholder="Preço do serviço" {...field} />
+        <Input type="number" placeholder="EX: R$ 40,00" {...field} />
       </FormControl>
      
       <FormMessage />

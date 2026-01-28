@@ -1,20 +1,21 @@
 import { AlertSite } from "@/components/AlertSite";
 import { AppSidebar } from "@/components/appsidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { auth } from "@/lib/auth";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Sora } from "next/font/google";
 
 
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
 
-
-
+const session =  await   auth()
+const userid = session?.user?.id
   return (
      <SidebarProvider>
       <AppSidebar />
@@ -23,7 +24,7 @@ export default function RootLayout({
             <div className="flex-1 flex items-center md:gap-18 gap-4">
                 <SidebarTrigger className="flex md:hidden" />
               
-              <AlertSite userId="cmk4t8pnj0000qwtc3t5uw7i6"  />
+              <AlertSite userId={userid}  />
 
             </div>
         

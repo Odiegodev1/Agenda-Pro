@@ -14,7 +14,11 @@ export function AlertSite({ userId }: Props) {
     const res = await getAgenda({ userId })
 
     if (!res?.error) {
-      setTotal(res.data.length)
+      const ativos = res.data.filter((appt) => 
+      appt.status !== "CONCLUIDO" && appt.status !== "CANCELADO" && appt.status !== "FALTOU"
+      )
+
+      setTotal(ativos.length)
     }
   }
 

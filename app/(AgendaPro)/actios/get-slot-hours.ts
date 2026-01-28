@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma"
 type GetAvailableHoursProps = {
   userId: string
   date: string // yyyy-mm-dd
-  serviceDuration: number // minutos (ex: 30)
+  serviceDuration: number
 }
 
 export async function getAvailableHours({
@@ -14,7 +14,7 @@ export async function getAvailableHours({
   date,
   serviceDuration,
 }: GetAvailableHoursProps) {
-  // 1️⃣ Buscar horários de funcionamento do prestador
+  // 1️⃣ Horário de funcionamento
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
@@ -23,14 +23,11 @@ export async function getAvailableHours({
     },
   })
 
-  if (!user || !user.openTime || !user.closeTime) {
-    return {
-      hours: [],
-      error: "Horário de funcionamento não configurado",
-    }
+  if (!user?.openTime || !user?.closeTime) {
+    return { hours: [], error: "Horário não configurado" }
   }
 
-  // 2️⃣ Gerar todos os horários possíveis
+  // 2️⃣ Gera todos os horários possíveis
   const allSlots = generateTimeSlots(
     user.openTime,
     user.closeTime,
@@ -38,32 +35,57 @@ export async function getAvailableHours({
   )
 
   // 3️⃣ Início e fim do dia
-  const start = new Date(`${date}T00:00:00`)
-  const end = new Date(`${date}T23:59:59`)
+  const startOfDay = new Date(`${date}T00:00:00`)
+  const endOfDay = new Date(`${date}T23:59:59`)
 
-  // 4️⃣ Buscar horários já ocupados
+  // 4️⃣ Busca agendamentos ATIVOS + duração
   const appointments = await prisma.appointment.findMany({
     where: {
       userId,
+      status: "AGENDADO",
       date: {
-        gte: start,
-        lte: end,
+        gte: startOfDay,
+        lte: endOfDay,
       },
     },
-    select: { date: true },
+    include: {
+      service: {
+        select: { duration: true },
+      },
+    },
   })
 
-  const busyTimes = appointments.map((a) =>
-    a.date.toLocaleTimeString("pt-BR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-  )
+  // 5️⃣ Monta intervalos ocupados
+  const busySlots = appointments.map((appt) => {
+    const start = new Date(appt.date)
+    const end = new Date(
+      start.getTime() + appt.service.duration * 60000
+    )
 
-  // 5️⃣ Filtrar horários disponíveis
-  const availableHours = allSlots.filter(
-    (slot) => !busyTimes.includes(slot)
-  )
+    return { start, end }
+  })
+
+  // 6️⃣ Filtra slots válidos (SEM SOBREPOSIÇÃO)
+  const availableHours = allSlots.filter((slot) => {
+    const [h, m] = slot.split(":").map(Number)
+
+    const slotStart = new Date(
+      startOfDay.getFullYear(),
+      startOfDay.getMonth(),
+      startOfDay.getDate(),
+      h,
+      m
+    )
+
+    const slotEnd = new Date(
+      slotStart.getTime() + serviceDuration * 60000
+    )
+
+    return !busySlots.some(
+      (busy) =>
+        slotStart < busy.end && slotEnd > busy.start
+    )
+  })
 
   return {
     hours: availableHours,

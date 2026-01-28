@@ -6,6 +6,8 @@ import { getServicesByUserId } from "../actios/createservice";
 import { DeleteServiceButton } from "@/components/DeleteserviceButton";
 import { EditServices } from "@/components/EditServices";
 import { redirect } from "next/navigation";
+import { convertedminInHours } from "@/lib/convertedminInHours";
+import { StringInReais } from "@/lib/stringinReais";
 
 
 export default async function ServicosPage(){
@@ -31,8 +33,8 @@ export default async function ServicosPage(){
                     {Servicoslist.data?.map((service) => (
                 <article key={service.id} className="flex items-center justify-between border p-4 rounded-lg">
                     <div>
-                        <h2 className="font-semibold text-lg">{service.name} - R$ {service.price}</h2>
-                        <p className="text-sm text-zinc-400">{service.duration} minutos</p>
+                        <h2 className="font-semibold text-lg">{service.name} - {StringInReais(service.price!)}</h2>
+                        <p className="text-sm text-zinc-400">{convertedminInHours(service.duration)} </p>
                     </div>
                     <div className="flex items-center gap-4">
                         <EditServices services={{serviceId: String(service.id), name: service.name, duration: String(service.duration), price: String(service.price)}}/>

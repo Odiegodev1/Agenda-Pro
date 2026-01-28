@@ -1,31 +1,44 @@
 
 import { Agendamento } from "@/components/Agendamento";
 import { ButtonAgendamento } from "@/components/buttonagedamento";
+import { SubscribeButton } from "@/components/buttonstripe";
 import { CopyAgenda } from "@/components/copyagedameto";
 
 import { Notifications } from "@/components/Notifications";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
+
 import { CalendarDays, CopyCheck, CopyCheckIcon, Link2 } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { CalendarDay } from "react-day-picker";
+import { checkPlanLimits } from "../actios/checkplan";
 
 export default async function AgendaProHome(){
     const session = await auth()
     if(!session){
         return redirect("/")
     }
+    const userId = session?.user?.id
+    const plan = await checkPlanLimits()
+    if(!plan.allowed){
+        return redirect("/planos")
+    }
+
+    
+    
+
     return(
        <section className="flex flex-1 flex-col gap-4">
+           
             <div className="flex items-center gap-3 justify-end w-full">
-               <ButtonAgendamento userId="cmk4t8pnj0000qwtc3t5uw7i6" />
-               <CopyAgenda userId="cmk4t8pnj0000qwtc3t5uw7i6" />
+               <ButtonAgendamento userId={userId} />
+               <CopyAgenda userId={userId} />
             </div>
             <main className="flex-1  gap-10 md:flex space-y-10   ">
 
             <div className="border-2 md:flex-1 h-fit rounded-2xl md:p-6 p-2 ">
-                <Agendamento userId="cmk4t8pnj0000qwtc3t5uw7i6" />
+                <Agendamento userId={userId} />
 
             </div>
 
